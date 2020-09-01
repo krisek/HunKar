@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osis
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.bibletechnologies.net/2003/OSIS/namespace"
+        xmlns:osis="http://www.bibletechnologies.net/2003/OSIS/namespace"
+        xsi:schemaLocation="http://www.bibletechnologies.net/2003/OSIS/namespace https://www.crosswire.org/osis/osisCore.2.1.1.xsd">
+
+
+<osisText osisIDWork="HunKar" osisRefWork="Bible" xml:lang="hu"  canonical="true">
+
+        <header>
+                <work osisWork="HunKar">
+                        <title>Magyar Revideált Károli</title>
+                        <identifier type="OSIS">Bible.HunKar</identifier>
+                        <refSystem>Bible.Calvin</refSystem>
+                </work>
+                <work osisWork="defaultReferenceScheme">
+                        <refSystem>Bible.Calvin</refSystem>
+                </work>
+
+
+        </header>
+
+
+{% for bookgroup in bible['bookgroups'] %}
+
+<div type="bookGroup">
+    <title>{{ bookgroup.title }}</title>
+    {% for book in bookgroup.books %}
+    {% if book.title %}<title>{{ book.title }}</title>{% endif %}
+    <div osisID="{{ book.bookid }}" type="book">
+      {% for chapter in book.chapters %}
+        <chapter osisID="{{ chapter.chapterid }}">
+          {% for section in chapter.sections %}
+
+            <div type="section"><title>{{ section.title }}</title>
+              {% for verse in section.verses %}
+              <verse osisID="{{ verse.id }}">{{ verse.text }}{% if verse.cite %} <note osisID="{{ verse.id }}!crossReference.c{{ verse.num }}" n="c{{ verse.num }}" osisRef="{{ verse.id }}" type="crossReference">{% for cite in verse.cites %}<reference osisRef="{{ cite.ref }}">{{ cite.text }}</reference> {% endfor %}</note>{% endif %}</verse>
+              {% endfor %}
+            </div> <!-- end section //-->
+
+          {% endfor %}
+        </chapter>
+      {% endfor %}{% if book.raw_xml %}{{ book.raw_xml  }}{% endif %}
+    </div> <!-- end book {{ book.bookid }} //-->
+
+    {% endfor %}
+</div> <!-- end book group //-->
+
+{% endfor %}
+
+</osisText>
+</osis>
