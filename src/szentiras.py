@@ -377,8 +377,8 @@ class SZIHTMLParser(HTMLParser):
 r = requests.get('https://szentiras.hu/api/books/KG')
 books = json.loads(r.text)
 
-src_dir = '/home/kris/Nextcloud/projects/hunuj/generate_karoli/szentiras.hu/KG'
-section_src_dir = '/home/kris/Nextcloud/projects/hunuj/generate_karoli/abibliamindenkie.hu/karoli'
+src_dir = '/home/kris/Nextcloud/projects/hunuj/HunKar/szentiras.hu/KG'
+section_src_dir = '/home/kris/Nextcloud/projects/hunuj/abibliamindenkie.hu/karoli'
 
 bible = {
     'bookgroups': [
