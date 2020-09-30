@@ -447,6 +447,10 @@ for book in books['books']:
                 section['verses'] = []
             #text correction
             verse['text'] = re.sub(r'• ', r'', verse['text']) #remove old * references
+            if chapter['chapterid'] + '.' + str(verse['num']) in ['Luke.2.4','Acts.28.17' , '1Pet.3.7']:
+                verse['text'] = re.sub(r',([a-z])', r', \1', verse['text'])
+
+
             if chapter['chapterid'] + '.' + str(verse['num']) == 'Gal.2.6':
                 verse['text'] = re.sub(r'személyét :', r'személyét):', verse['text'])
 
@@ -810,7 +814,7 @@ TEMPLATE_FILE = "osis.j2.xml"
 template = templateEnv.get_template(TEMPLATE_FILE)
 outputText = template.render(bible=bible)
 
-with open("osis.xml", "w") as text_file:
+with open("../hunkaroli_rev.osis.xml", "w") as text_file:
     print(f"{outputText}", file=text_file)
 
 #print(outputText)
