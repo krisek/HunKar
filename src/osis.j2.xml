@@ -35,7 +35,7 @@
 
             <div type="section"><title>{{ section.title }}</title>
               {% for verse in section.verses %}
-              <verse osisID="{{ verse.id }}">{{ verse.text }}{% if verse.cite %} <note osisID="{{ verse.id }}!crossReference.c{{ verse.num }}" n="c{{ verse.num }}" osisRef="{{ verse.id }}" type="crossReference">{% for cite in verse.cites %}<reference osisRef="{{ cite.ref }}">{{ cite.text }}</reference> {% endfor %}</note>{% endif %}</verse>
+              <verse osisID="{{ verse.id }}">{{ verse.text }}{% if verse.cites and verse.cites | length > 0 %} <note osisID="{{ verse.id }}!crossReference.c{{ verse.num }}" n="c{{ verse.num }}" osisRef="{{ verse.id }}" type="crossReference">{% for cite in verse.cites %}<reference osisRef="{{ cite.ref }}">{{ cite.text }}</reference> {% endfor %}</note>{% endif %}</verse>
               {% endfor %}
             </div> <!-- end section //-->
 

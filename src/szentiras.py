@@ -802,8 +802,51 @@ for book in books['books']:
 
     bible['bookgroups'][bookgroup_id]['books'].append(book_data)
 
+#we have invalid references in the text, these have to be removed
+
+osisIDs = []
+#first create a list of verses
+for book_group in bible['bookgroups']:
+    for book in book_group['books']:
+        for chapter in book['chapters']:
+            for section in chapter['sections']:
+                for verse in section['verses']:
+                    osisIDs.append(verse['id'])
+
+invalid_references = []
+#and now crawl through all references
+for bg, book_group in enumerate(bible['bookgroups']):
+    for b, book in enumerate(bible['bookgroups'][bg]['books']):
+        for c, chapter in enumerate(bible['bookgroups'][bg]['books'][b]['chapters']):
+            for s, section in enumerate(bible['bookgroups'][bg]['books'][b]['chapters'][c]['sections']):
+                for v, verse in enumerate(bible['bookgroups'][bg]['books'][b]['chapters'][c]['sections'][s]['verses']):
+                    cites_to_del = []
+                    for ci, cite in enumerate(bible['bookgroups'][bg]['books'][b]['chapters'][c]['sections'][s]['verses'][v].get('cites', [])):
+                        osisRef = cite['ref']
+                        matchObj = re.search(r'^(\w+\.\d+\.\d+)\-(\w+\.\d+\.\d+)$', osisRef)
+                        if matchObj:
+                            if(matchObj[1] not in osisIDs):# or matchObj[2] not in osisIDs):
+                                invalid_references.append({'verse': verse['id'], 'ref': osisRef})
+                                cites_to_del.append(cite)
 
 
+                        else:
+                            matchObj = re.search(r'^(\w+\.\d+\.\d+)$', osisRef)
+                            if matchObj:
+                                if(matchObj[1] not in osisIDs):
+                                    invalid_references.append({'verse': verse['id'], 'ref': osisRef})
+                                    cites_to_del.append(cite)
+
+                        if matchObj is None:
+                            print('didnt match: ', verse['id'], cite)
+                    for cite_to_del in cites_to_del:
+                        bible['bookgroups'][bg]['books'][b]['chapters'][c]['sections'][s]['verses'][v]['cites'].remove(cite_to_del)
+                    if 'cites' in bible['bookgroups'][bg]['books'][b]['chapters'][c]['sections'][s]['verses'][v] and len(bible['bookgroups'][bg]['books'][b]['chapters'][c]['sections'][s]['verses'][v]['cites']) == 0:
+                        del bible['bookgroups'][bg]['books'][b]['chapters'][c]['sections'][s]['verses'][v]['cites']
+
+
+
+print('invalid references removed: ',len(invalid_references))
 
 
 
