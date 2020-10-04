@@ -2,9 +2,11 @@ language: python
 python:
   - "3.6"      # current default Python on Travis CI
 # command to install dependencies
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install libxml2-dev osis2mod libxml2-utils
+
 install:
-  - sudo apt update
-  - sudo apt install -y osis2mod libxml2-utils
   - git clone https://github.com/krisek/sword-test
   - pip install -r sword-test/requirements.txt
 # command to run tests
