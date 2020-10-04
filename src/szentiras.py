@@ -454,6 +454,12 @@ for book in books['books']:
             if chapter['chapterid'] + '.' + str(verse['num']) == 'Gal.2.6':
                 verse['text'] = re.sub(r'személyét :', r'személyét):', verse['text'])
 
+
+            if chapter['chapterid'] + '.' + str(verse['num']) in ['Gen.15.5', 'Gen.41.55', 'Exod.4.3', 'Exod.9.19', 'Exod.18.2', 'Deut.28.53', 'Deut.28.67', 'Deut.32.24', 'Josh.22.23', 'Josh.22.25', 'Judg.1.10', 'Judg.5.23', 'Judg.7.1', 'Judg.16.9', 'Judg.16.13', 'Judg.16.24', 'Judg.19.10', 'Judg.20.27', 'Judg.20.28', 'Ruth.4.12', '1Sam.9.27', '1Sam.13.6', '1Sam.14.15', '1Sam.19.17', '2Sam.18.13', '1Kgs.8.46', '1Kgs.11.15', '1Kgs.11.26', '2Kgs.7.13', '2Kgs.18.9', '2Kgs.18.10', '2Kgs.22.14', '2Kgs.23.15', '2Kgs.25.8', '2Chr.24.20', 'Ezra.2.65', 'Ezra.3.9', 'Ezra.8.17', 'Neh.3.23', 'Neh.7.67', 'Neh.11.17', 'Neh.11.22', 'Neh.11.30', 'Neh.12.7', 'Neh.12.8', 'Neh.12.38', 'Job.3.13', 'Job.26.10', 'Job.33.12', 'Job.42.3', 'Ps.8.5', 'Ps.27.2', 'Ps.27.7', 'Ps.32.5', 'Ps.35.22', 'Ps.38.11', 'Ps.84.4', 'Ps.88.19', 'Ps.99.3', 'Ezek.5.9', 'Ezek.16.19', 'Ezek.27.18', 'Mark.11.32', 'Rom.3.8', 'Heb.9.10'] :
+                verse['text'] = re.sub(r' \- ', r' – ', verse['text'])
+                verse['text'] = re.sub(r' \-$', r' –', verse['text'])
+
+
             #we need to do something with citations here
             if 'cite' in verse:
                 #print('-----')
