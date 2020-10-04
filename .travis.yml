@@ -12,4 +12,4 @@ install:
 # command to run tests
 script:
   - cd sword-test
-  - pytest --modulename HunKar --moduleconf ../hunkar.conf -vvv --modulexml ../hunkaroli_revosis.xml -vvv -s
+  - pytest --modulename HunKar --moduleconf ../hunkar.conf -vvv --modulexml ../hunkaroli_rev.osis.xml -vvv -s
