@@ -4,7 +4,7 @@ python:
 # command to install dependencies
 before_install:
   - sudo apt-get update
-  - sudo apt-get -y install libxml2-dev osis2mod libxml2-utils
+  - sudo apt-get -y install libxml2-dev libsword-utils libxml2-utils
 
 install:
   - git clone https://github.com/krisek/sword-test
